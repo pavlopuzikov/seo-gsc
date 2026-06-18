@@ -1,0 +1,11 @@
+.env
+.env.local
+config.yaml
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.coverage
+# Cached pulls and generated reports
+cache/
+reports/
+*-to-*.csv

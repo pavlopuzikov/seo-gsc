@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seo-gsc"
+version = "0.1.0"
+description = "Local SEO/GEO/AEO toolkit: pulls Google Search Console + GA4 data and runs quick-win, clustering, content-gap, title-CTR, and weekly-report analyses. No third-party data brokers."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "pydantic>=2.0,<3",
+    "python-dotenv>=1.0",
+    "PyYAML>=6.0",
+]
+
+# Live API pulls (GSC + GA4) use httpx + google-auth via REST, both already in shared/venv311.
+# These extras are only needed if you prefer the official Google client SDKs instead.
+[project.optional-dependencies]
+api = ["httpx>=0.27", "google-auth>=2.0"]
+sdk = ["google-api-python-client>=2.0", "google-analytics-data>=0.18", "google-auth>=2.0"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+seo-gsc = "seo_gsc.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["seo_gsc*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,37 @@
+# seo-gsc configuration. Copy to config.yaml and edit. Safe to commit config.yaml
+# (it holds NO secrets; the service-account path lives only in .env.local).
+
+properties:
+  pavlopuzikov:
+    name: pavlopuzikov.com
+    # Domain property if verified at the domain level, else the URL prefix.
+    site_url: sc-domain:pavlopuzikov.com
+    ga4_property_id: null        # e.g. "properties/123456789" once known
+    default_country: null        # null = all countries
+    notes: Portfolio. Rides the weekly scheduled report.
+
+  housecall:
+    name: housecallastro.com
+    site_url: sc-domain:housecallastro.com
+    ga4_property_id: null
+    default_country: usa
+    notes: House Call astro. Connecting GSC here also clears a launch blocker.
+
+# Tunable cut-offs for the five modes. Defaults shown; override per deployment.
+thresholds:
+  quick_win_min_position: 5.0
+  quick_win_max_position: 15.0
+  quick_win_min_impressions: 200
+  low_ctr_factor: 0.7            # flag CTR below 70% of expected for the position
+  low_ctr_min_impressions: 100
+  gap_min_impressions: 50
+  gap_max_clicks: 1
+  cluster_min_queries: 2
+  cluster_min_shared_tokens: 1
+
+# Optional: override the expected-CTR-by-position curve to match your audience.
+# Brand-heavy sites earn higher position-1 CTR than informational ones.
+# ctr_curve:
+#   1: 0.32
+#   2: 0.17
+#   3: 0.11
