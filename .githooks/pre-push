@@ -1,0 +1,23 @@
+#!/bin/sh
+# Branch protection (client-side). Blocks force-push and deletion of protected
+# branches. Server-side protection needs GitHub Pro for private repos; this is the
+# free alternative. Active only where `git config core.hooksPath .githooks` is set.
+# Override a single intentional push with:  git push --no-verify
+PROTECTED="main master"
+ZERO="0000000000000000000000000000000000000000"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  branch=$(printf '%s' "$remote_ref" | sed 's#refs/heads/##')
+  for p in $PROTECTED; do
+    [ "$branch" = "$p" ] || continue
+    if [ "$local_sha" = "$ZERO" ]; then
+      echo "BLOCKED: refusing to delete protected branch '$p'. Override: git push --no-verify"
+      exit 1
+    fi
+    if [ "$remote_sha" != "$ZERO" ] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+      echo "BLOCKED: refusing non-fast-forward (force) push to protected branch '$p'. Override: git push --no-verify"
+      exit 1
+    fi
+  done
+done
+exit 0

@@ -9,3 +9,15 @@ __pycache__/
 cache/
 reports/
 *-to-*.csv
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.env
+.DS_Store
+outputs/
+output/
+*.log

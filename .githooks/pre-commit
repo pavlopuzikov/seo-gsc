@@ -1,0 +1,30 @@
+#!/bin/sh
+# Repo de-bloat guard (added 2026-06-05). Blocks the class of mistake that
+# bloated .git to 12GB: large binaries / data committed into history.
+# Override a single commit with:  git commit --no-verify
+# See ~/.claude/plans/plan-a-way-to-fluffy-volcano.md
+
+MAX_BYTES=5242880   # 5 MB
+fail=0
+
+# Only check files added/modified in this commit (staged), not deletions.
+staged=$(git diff --cached --name-only --diff-filter=AM)
+
+for f in $staged; do
+  [ -f "$f" ] || continue
+  # portable size (Linux stat -c, BSD/macOS stat -f, fallback wc -c)
+  size=$(stat -c %s "$f" 2>/dev/null || stat -f %z "$f" 2>/dev/null || wc -c < "$f")
+  if [ "$size" -gt "$MAX_BYTES" ]; then
+    mb=$(( size / 1048576 ))
+    echo "BLOCKED: $f is ${mb}MB (> 5MB limit)."
+    fail=1
+  fi
+done
+
+if [ "$fail" -eq 1 ]; then
+  echo ""
+  echo "Large files belong in external storage (D: junction / object store), not git."
+  echo "If this file is genuinely required in-repo, override once: git commit --no-verify"
+  exit 1
+fi
+exit 0
