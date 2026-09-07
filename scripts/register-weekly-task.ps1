@@ -1,7 +1,6 @@
 <#
 .SYNOPSIS
     Register the weekly SEO report as a Windows Scheduled Task (Monday 08:00).
-    Mirrors the infra/multi-agent setup_scheduler.ps1 pattern.
 
 .PARAMETER AtTime
     Time to run on Monday. Default: 08:00.

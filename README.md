@@ -1,5 +1,9 @@
 # seo-gsc
 
+[![sanity](https://github.com/pavlopuzikov/seo-gsc/actions/workflows/sanity.yml/badge.svg)](https://github.com/pavlopuzikov/seo-gsc/actions/workflows/sanity.yml)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
+
 Local SEO / GEO / AEO toolkit. Pulls Google Search Console (and optionally GA4)
 data and runs five analyses: quick wins, query clustering, content gaps,
 title/CTR opportunities, and a week-over-week report.
@@ -8,10 +12,9 @@ Built local on `httpx` + `google-auth` (REST), so no third-party broker is ever
 granted read access to your Search Console or Analytics data. Works with a live
 API pull or a pasted/exported CSV, so you can start before any credentials exist.
 
-This tool produces the DATA and the prioritized action list. For turning a
-priority query into citation-ready, schema-rich, AI-extractable content, hand off
-to the `seo-aeo-geo` skill. See `docs/integration-specs/seo-gsc-skill-suite.md`
-and `docs/seo-aeo-playbook-research.md` for the strategy this encodes.
+It produces the data and the prioritised action list, and stops there. Turning a
+priority query into the page that answers it is a writing job, and this tool
+deliberately does not try to do it.
 
 ## The five modes
 
@@ -28,12 +31,11 @@ and `docs/seo-aeo-playbook-research.md` for the strategy this encodes.
 Export `Queries.csv` / `Pages.csv` (or a combined query+page+date CSV) from the
 GSC Performance report, then:
 
-On Windows use Git Bash for the `source` line below, or activate from PowerShell with
-`.\shared\venv311\Scripts\Activate.ps1` (cmd.exe: `shared\venv311\Scripts\activate.bat`).
-
 ```bash
-source shared/venv311/Scripts/activate          # canonical Python 3.11 env
-cd tools/seo-gsc
+python -m venv .venv
+source .venv/bin/activate       # Windows PowerShell: .\.venv\Scripts\Activate.ps1
+pip install -e .
+
 python -m seo_gsc.cli quick-wins --source csv --input Queries.csv
 python -m seo_gsc.cli clusters   --source csv --input Queries.csv
 python -m seo_gsc.cli titles     --source csv --input Pages.csv
@@ -73,13 +75,14 @@ per property (a brand-heavy site earns much higher position-1 CTR).
 ## Weekly automation
 
 `scripts/register-weekly-task.ps1` registers a Windows Task Scheduler job that
-runs `scripts/run-weekly-report.ps1` every Monday 08:00, mirroring the
-`infra/multi-agent` headless pattern. See that script's header for usage.
+runs `scripts/run-weekly-report.ps1` every Monday 08:00. See that script's header
+for usage. It looks for `.venv/Scripts/python.exe` in the repo, falling back to
+`python` on `PATH`.
 
 ## Development
 
 ```bash
-cd tools/seo-gsc
+pip install -e ".[dev]"
 python -m pytest -q
 ```
 

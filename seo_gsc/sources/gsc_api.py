@@ -1,7 +1,7 @@
 """Live Google Search Console pull via the Search Analytics REST API.
 
-Built on httpx + google-auth (both in shared/venv311) rather than
-google-api-python-client, so no extra install is required. Service-account auth
+Built on httpx + google-auth rather than google-api-python-client, so the live
+pull needs two small packages instead of the full client stack. Service-account auth
 is the default (unattended weekly run); an authorized-user OAuth token file is
 also supported.
 

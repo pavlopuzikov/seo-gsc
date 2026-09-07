@@ -22,8 +22,13 @@ param(
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ToolDir = Split-Path -Parent $ScriptDir
-$RepoRoot = Split-Path -Parent (Split-Path -Parent $ToolDir)
-$Python = Join-Path $RepoRoot "shared/venv311/Scripts/python.exe"
+# Prefer a virtualenv inside the repo; fall back to whatever python is on PATH,
+# because the scheduled task runs with no shell profile and no activated env.
+$Python = Join-Path $ToolDir ".venv/Scripts/python.exe"
+if (-not (Test-Path $Python)) {
+    $onPath = Get-Command python -ErrorAction SilentlyContinue
+    if ($onPath) { $Python = $onPath.Source }
+}
 $ReportsDir = Join-Path $ToolDir "reports"
 $ConfigPath = Join-Path $ToolDir "config.yaml"
 

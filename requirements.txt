@@ -1,10 +1,12 @@
-PyYAML==6.0.3
-httpx==0.28.1
-pandas==3.0.2
-pydantic==2.13.4
-pytest==9.1.1
+# pyproject.toml is the source of truth for dependencies. This file exists for
+# tools and hosts that expect a requirements.txt, and installs the same set.
+#
+#   pip install -r requirements.txt     runtime + live API pulls + tests
+#   pip install -e .                    runtime only
+#   pip install -e ".[api]"             adds the live Search Console / GA4 pull
+#   pip install -e ".[dev]"             adds pytest
+#
+# The tests run fully offline, so the api extra is not needed to check out the
+# repo and run them.
 
-# unresolved against shared/venv311 freeze at extraction time - verify manually:
-# dotenv
-# google
-# seo_gsc
+-e .[api,dev]

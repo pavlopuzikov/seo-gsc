@@ -1,12 +1,29 @@
 name: sanity
 on: [push, pull_request]
+
 jobs:
-  compile-check:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor declared in pyproject.toml, and the current release.
+        python-version: ["3.11", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: install
+        # Runtime plus pytest. The api extra is deliberately left out: the suite
+        # runs offline, so a green run proves the analyses work without google-auth
+        # installed, which is the lazy-import guarantee the package makes.
+        run: pip install -e ".[dev]"
+
       - name: byte-compile check
         run: python -m compileall -q .
+
+      - name: tests
+        run: python -m pytest -q
