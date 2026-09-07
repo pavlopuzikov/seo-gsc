@@ -4,18 +4,18 @@
     Run by the SeoWeeklyReport scheduled task, or manually.
 
 .PARAMETER Properties
-    Property keys from config.yaml. Default: pavlopuzikov, housecall.
+    Property keys from config.yaml. Default: portfolio, shop.
 
 .PARAMETER Days
     Lookback window for the "current" week (the previous week is auto-derived).
 
 .EXAMPLE
     .\run-weekly-report.ps1
-    .\run-weekly-report.ps1 -Properties pavlopuzikov -Days 7
+    .\run-weekly-report.ps1 -Properties portfolio -Days 7
 #>
 
 param(
-    [string[]]$Properties = @("pavlopuzikov", "housecall"),
+    [string[]]$Properties = @("portfolio", "shop"),
     [int]$Days = 7
 )
 

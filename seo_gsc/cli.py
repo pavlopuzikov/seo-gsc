@@ -6,8 +6,8 @@ caches a live API pull to CSV. Every command works on either a CSV export
 
 Examples:
   seo-gsc quick-wins --source csv --input Queries.csv
-  seo-gsc weekly --source api --property pavlopuzikov --days 7 --output report.md
-  seo-gsc pull --property housecall --days 28 --output cache/housecall.csv
+  seo-gsc weekly --source api --property portfolio --days 7 --output report.md
+  seo-gsc pull --property shop --days 28 --output cache/shop.csv
 """
 
 from __future__ import annotations

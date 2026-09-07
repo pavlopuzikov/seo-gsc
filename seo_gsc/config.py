@@ -32,8 +32,8 @@ class PropertyConfig(BaseModel):
     """One verified site to analyze."""
 
     name: str
-    # GSC property identifier: either a URL prefix ("https://pavlopuzikov.com/")
-    # or a domain property ("sc-domain:pavlopuzikov.com").
+    # GSC property identifier: either a URL prefix ("https://example.com/")
+    # or a domain property ("sc-domain:example.com").
     site_url: str
     ga4_property_id: str | None = None
     default_country: str | None = None  # ISO-3 (for example "are", "usa"); None = all

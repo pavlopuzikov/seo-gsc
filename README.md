@@ -52,9 +52,9 @@ Add `--json` for machine-readable output, `--output report.md` to write a file.
 4. `cp config.example.yaml config.yaml` and list your properties.
 
 ```bash
-python -m seo_gsc.cli pull       --source api --property pavlopuzikov --days 28 --output cache/pp.csv
-python -m seo_gsc.cli quick-wins --source api --property pavlopuzikov --days 28
-python -m seo_gsc.cli weekly     --source api --property housecall --days 7 --output reports/housecall.md
+python -m seo_gsc.cli pull       --source api --property portfolio --days 28 --output cache/portfolio.csv
+python -m seo_gsc.cli quick-wins --source api --property portfolio --days 28
+python -m seo_gsc.cli weekly     --source api --property shop --days 7 --output reports/shop.md
 ```
 
 `--days` is the lookback window; the most recent usable day defaults to 3 days

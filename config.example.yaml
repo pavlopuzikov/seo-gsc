@@ -2,20 +2,23 @@
 # (it holds NO secrets; the service-account path lives only in .env.local).
 
 properties:
-  pavlopuzikov:
-    name: pavlopuzikov.com
-    # Domain property if verified at the domain level, else the URL prefix.
-    site_url: sc-domain:pavlopuzikov.com
+  # One block per site. The key is what you pass to `--property`.
+  portfolio:
+    name: example.com
+    # Domain property if verified at the domain level, else the URL prefix
+    # (`https://example.com/`). These are different properties in Search
+    # Console and they return different data, so match what you verified.
+    site_url: sc-domain:example.com
     ga4_property_id: null        # e.g. "properties/123456789" once known
     default_country: null        # null = all countries
-    notes: Portfolio. Rides the weekly scheduled report.
+    notes: Free-text. Shown in report headers.
 
-  housecall:
-    name: housecallastro.com
-    site_url: sc-domain:housecallastro.com
+  shop:
+    name: shop.example.com
+    site_url: https://shop.example.com/
     ga4_property_id: null
-    default_country: usa
-    notes: House Call astro. Connecting GSC here also clears a launch blocker.
+    default_country: usa         # ISO-3166-1 alpha-3, as Search Console reports it
+    notes: A second property, to show the shape.
 
 # Tunable cut-offs for the five modes. Defaults shown; override per deployment.
 thresholds:
