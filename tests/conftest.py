@@ -18,7 +18,7 @@ _ROWS = [
     ("buy apartment dubai marina", "/listings/marina", 12, 1500, 9.4, "2026-06-09"),
     ("apartment for sale dubai", "/listings/luxury-apartments", 8, 1200, 11.5, "2026-06-10"),
     # Title/CTR problem: ranks position 2 but earns far below expected CTR.
-    ("barnes dubai reviews", "/about", 20, 5000, 2.1, "2026-06-10"),
+    ("acme realty reviews", "/about", 20, 5000, 2.1, "2026-06-10"),
     # Astrology cluster.
     ("birth chart reading", "/blog/birth-chart", 50, 2000, 4.0, "2026-06-09"),
     ("free birth chart", "/blog/birth-chart", 40, 2500, 5.1, "2026-06-10"),
@@ -28,7 +28,7 @@ _ROWS = [
     # Previous-period rows (older dates) for week-over-week.
     ("luxury apartment dubai", "/listings/luxury-apartments", 18, 3500, 8.0, "2026-06-02"),
     ("birth chart reading", "/blog/birth-chart", 60, 2100, 3.6, "2026-06-02"),
-    ("barnes dubai reviews", "/about", 22, 4800, 2.0, "2026-06-03"),
+    ("acme realty reviews", "/about", 22, 4800, 2.0, "2026-06-03"),
 ]
 
 

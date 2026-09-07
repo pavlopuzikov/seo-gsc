@@ -9,7 +9,7 @@ from typing import Sequence
 import pandas as pd
 
 # Generic English stopwords plus filler that adds no topical signal. Domain hub
-# terms (for example "dubai", "barnes") are removed dynamically as corpus
+# terms (for example "dubai", or the site's own brand name) are removed dynamically as corpus
 # stopwords in cluster_queries, not hardcoded here.
 STOPWORDS: frozenset[str] = frozenset(
     {

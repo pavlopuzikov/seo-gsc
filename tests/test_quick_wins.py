@@ -15,7 +15,7 @@ def test_excludes_page_one_top_and_low_impressions(dataset):
     wins = find_quick_wins(dataset)
     queries = {w.query for w in wins}
     # Ranks at position ~2, so not a quick win (already on page 1 top).
-    assert "barnes dubai reviews" not in queries
+    assert "acme realty reviews" not in queries
 
 
 def test_sorted_by_opportunity_desc(dataset):

@@ -6,7 +6,7 @@ def test_top_title_issue_is_high_rank_low_ctr(dataset):
     assert issues, "expected at least one title/CTR issue"
     top = issues[0]
     # The position-2 page that earns almost no clicks is the biggest miss.
-    assert top.page == "/about" or "barnes" in top.query
+    assert top.page == "/about" or "acme" in top.query
     assert top.actual_ctr < top.expected_ctr
     assert top.missed_clicks > 0
 
