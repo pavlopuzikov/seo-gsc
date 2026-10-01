@@ -140,13 +140,23 @@ def _render_gaps(gaps, as_json: bool) -> str:
 def _render_titles(issues, as_json: bool) -> str:
     if as_json:
         return json.dumps([i.to_dict() for i in issues], indent=2)
-    rows = [
-        [(i.page or i.query), num(i.impressions), pos(i.position), pct(i.actual_ctr), pct(i.expected_ctr), num(i.missed_clicks)]
-        for i in issues
-    ]
-    return "# Title / meta CTR opportunities\n\n" + md_table(
-        ["Page or query", "Impressions", "Position", "Actual CTR", "Expected CTR", "Missed clicks"], rows
-    )
+    metrics = ["Impressions", "Position", "Actual CTR", "Expected CTR", "Missed clicks"]
+    # A combined page+query export is grouped per (page, query), so one page can
+    # appear on several rows. Printing only the page made those rows look like
+    # duplicates with different numbers; name the query beside it instead.
+    if any(i.page and i.query for i in issues):
+        rows = [
+            [i.page or "-", i.query or "-", num(i.impressions), pos(i.position), pct(i.actual_ctr), pct(i.expected_ctr), num(i.missed_clicks)]
+            for i in issues
+        ]
+        headers = ["Page", "Query", *metrics]
+    else:
+        rows = [
+            [(i.page or i.query), num(i.impressions), pos(i.position), pct(i.actual_ctr), pct(i.expected_ctr), num(i.missed_clicks)]
+            for i in issues
+        ]
+        headers = ["Page or query", *metrics]
+    return "# Title / meta CTR opportunities\n\n" + md_table(headers, rows)
 
 
 # -- command handlers ---------------------------------------------------------

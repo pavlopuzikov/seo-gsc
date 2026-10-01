@@ -136,7 +136,7 @@ def build_weekly_markdown(
             ["Clicks", num(s.clicks), num(s.clicks_prev), signed(s.clicks_change)],
             ["Impressions", num(s.impressions), num(s.impressions_prev), signed(s.impressions - s.impressions_prev)],
             ["CTR", pct(s.ctr), pct(s.ctr_prev), f"{(s.ctr - s.ctr_prev) * 100:+.2f} pts"],
-            ["Avg position", pos(s.position), pos(s.position_prev), f"{s.position_change:+.1f}"],
+            ["Avg position (lower is better)", pos(s.position), pos(s.position_prev), f"{s.position_change:+.1f}"],
         ],
     )
 

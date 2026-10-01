@@ -44,6 +44,15 @@ python -m seo_gsc.cli weekly     --source csv --input dated-export.csv --split 2
 
 Add `--json` for machine-readable output, `--output report.md` to write a file.
 
+No export yet? `examples/sample-search-console.csv` is a small synthetic dataset
+with one case for each analysis (see `examples/README.md`), so every command above
+runs straight after install:
+
+```bash
+python -m seo_gsc.cli quick-wins --source csv --input examples/sample-search-console.csv
+python -m seo_gsc.cli weekly     --source csv --input examples/sample-search-console.csv --split 2026-06-08
+```
+
 ## Live API pull
 
 1. Create a Google Cloud service account, enable the Search Console API and (for
